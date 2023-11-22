@@ -479,12 +479,12 @@ module StateMachine
         def define_action_hook
           if action_hook == :save
             define_helper :instance, <<-end_eval, __FILE__, __LINE__ + 1
-              def save(*)
-                self.class.state_machine(#{name.inspect}).send(:around_save, self) { super() }
+              def save(**)
+                self.class.state_machine(#{name.inspect}).send(:around_save, self) { super }
               end
 
-              def save!(*)
-                self.class.state_machine(#{name.inspect}).send(:around_save, self) { super() } || raise(ActiveRecord::RecordInvalid.new(self))
+              def save!(**)
+                self.class.state_machine(#{name.inspect}).send(:around_save, self) { super } || raise(ActiveRecord::RecordInvalid.new(self))
               end
 
               def changed_for_autosave?
